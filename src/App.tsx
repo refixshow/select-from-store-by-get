@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import TodosContextProvider from "./contexts/todosContext"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { HomePage, ErrorPage, ItemsPage } from "./pages"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <TodosContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/items" component={ItemsPage} />
+          <Route path="/items/:id" component={ItemsPage} />
+          <Route path="/*" component={ErrorPage} />
+        </Switch>
+      </Router>
+    </TodosContextProvider>
+  )
 }
 
-export default App;
+export default App
